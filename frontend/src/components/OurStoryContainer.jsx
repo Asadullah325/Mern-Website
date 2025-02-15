@@ -16,10 +16,13 @@ const OurStoryContainer = () => {
               Until I discovered cooking I was never really interested in
               anything
             </h3>
-            <p className="py-4 text-xl text-center md:text-left">
+            <p className="py-4 text-md text-center md:text-left">
               Pleased anxious or as in by viewing forbade minutes prevent. Too
               leave had those get being led weeks blind. Had men rose from down
-              lady able. Its son him ferrars proceed six parlors. Advanced
+              lady able. 
+            </p>
+            <p className="py-4 text-md text-center md:text-left">
+            Its son him ferrars proceed six parlors. Advanced
               diverted domestic sex repeated bringing you old. Possible procured
               her trifling laughter thoughts property she met way. Companions
               shy had solicitude favourable own. Which could saw guest man now
@@ -37,7 +40,7 @@ const OurStoryContainer = () => {
                   <p className="text-sm">+91 123456789</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 p-4 border border-l-0 border-gray-300 w-full md:w-1/2">
+              <div className="flex items-center gap-4 p-4 border md:border-l-0 border-gray-300 w-full md:w-1/2">
                 <HiOutlineMailOpen
                   style={{ color: "#e7000b", fontSize: "40px" }}
                 />
@@ -63,7 +66,7 @@ const OurStoryContainer = () => {
                 boxShadow: "0 0 3px rgba(0,0,0,0.3)",
               }}
             />
-            <div className="flex flex-col items-center pt-15 pb-10 w-full h-full">
+            <div className="flex flex-col items-center pt-15 pb-3 w-full h-full">
               <h1 className="text-3xl uppercase font-bold text-red-600">
                 Book a table
               </h1>
@@ -104,7 +107,7 @@ const OurStoryContainer = () => {
                     className="border border-gray-300 p-4 w-full outline-none"
                   />
                 </div>
-                <button type="submit" className="bg-red-600 text-white p-4 w-full outline-none rounded cursor-pointer">Book Now</button>
+                <button type="submit" className="bg-red-600 text-white p-4 mt-2 w-full outline-none rounded cursor-pointer">Book Now</button>
               </form>
             </div>
           </div>
