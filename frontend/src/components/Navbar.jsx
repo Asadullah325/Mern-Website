@@ -9,20 +9,12 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    if (search.trim()) {
-      navigate(`/search?query=${encodeURIComponent(search)}`);
-      setSearchOpen(false); // Close search bar after navigation
-      setSearch(""); // Clear search input
-    }
-  };
-
   return (
     <nav className="bg-white p-4 shadow-lg fixed top-0 left-0 w-full z-50 font-['Open_Sans',sans-serif]" style={{height: "65px"}}>
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center gap-1">
           <img src="/logo.png" alt="Logo" className="h-8" />
-          <h1 className="text-gray-700 text-2xl font-bold uppercase">Brand</h1>
+          <h1 className="text-red-600 text-2xl font-bold uppercase">Brand</h1>
         </div>
         <div className="hidden md:flex space-x-6">
           <Link to="/" className={`text-gray-700 text-sm transition duration-300 font-bold uppercase ${location.pathname === "/" ? " text-red-600" : "hover:text-red-600"}`}>Home</Link>
@@ -57,12 +49,11 @@ export default function Navbar() {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-300 w-48 md:w-64"
+          className="p-2 rounded-md focus:outline-none transition duration-300 w-48 md:w-64"
           placeholder="Search..."
         />
         <button
-          onClick={handleSearch}
-          className="p-3 cursor-pointer bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300"
+          className="p-3 cursor-pointer bg-red-600 text-white rounded-r-md hover:bg-red-700 transition duration-300"
         >
           <Search size={20} />
         </button>

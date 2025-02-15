@@ -1,26 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
-const videoSources = [
-  '/Bg3.mp4',
-  '/Bg.mp4',
-  '/Bg2.mp4',
-];
+const videoSources = ["/Bg3.mp4", "/Bg.mp4", "/Bg2.mp4"];
 
 const textContent = [
   {
-    heading: 'Welcome to My Website',
-    subheading: 'Explore our amazing features and services.',
-    buttonText: 'Get Started',
+    heading: "Welcome to Brand",
+    subheading: "Explore our amazing services.",
   },
   {
-    heading: 'Discover New Possibilities',
-    subheading: 'Innovative solutions for your needs.',
-    buttonText: 'Learn More',
+    heading: "Discover New Products",
+    subheading: "Innovative solutions for you.",
   },
   {
-    heading: 'Join Our Community',
-    subheading: 'Be part of something great.',
-    buttonText: 'Sign Up',
+    heading: "Join Our Community",
+    subheading: "Be part of something great.",
   },
 ];
 
@@ -68,27 +62,35 @@ const VideoBackground = () => {
   }, [currentVideoIndex, currentTextIndex]);
 
   return (
-    <div style={styles.bannerContainer} className='mt-17'>
+    <div style={styles.bannerContainer} className="mt-17">
       <video
         ref={videoRef}
         key={currentVideoIndex}
         autoPlay
         muted
         style={styles.video}
-        onError={() => console.error('Failed to load video')}
+        onError={() => console.error("Failed to load video")}
       >
         <source src={videoSources[currentVideoIndex]} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div style={styles.overlay}>
-        <h1 style={styles.heading}>{textContent[currentTextIndex].heading}</h1>
-        <p style={styles.subheading}>{textContent[currentTextIndex].subheading}</p>
-        <button style={styles.button}>{textContent[currentTextIndex].buttonText}</button>
+        <div className="flex flex-col items-center">
+          <h1 style={styles.heading} className="custom-font">
+            {textContent[currentTextIndex].heading}
+          </h1>
+          <p style={styles.subheading}>
+            {textContent[currentTextIndex].subheading}
+          </p>
+          <Link to={"/"} className="bg-red-600 hover:bg-red-700 text-white cursor-pointer z-20 font-bold py-2 px-4 rounded">
+            Get Started
+          </Link>
+        </div>
       </div>
       {/* Navigation Arrows */}
       <div style={styles.navigation}>
         <button
-          style={styles.navButton}
+          className="bg-red-600 hover:bg-red-700 text-white cursor-pointer z-20 font-bold py-2 px-4 rounded-full"
           onClick={() => {
             setCurrentTextIndex((prevIndex) =>
               prevIndex > 0 ? prevIndex - 1 : textContent.length - 1
@@ -98,7 +100,7 @@ const VideoBackground = () => {
           &lt;
         </button>
         <button
-          style={styles.navButton}
+          className="bg-red-600 hover:bg-red-700 text-white cursor-pointer z-20 font-bold py-2 px-4 rounded-full"
           onClick={() => {
             setCurrentTextIndex((prevIndex) =>
               prevIndex < textContent.length - 1 ? prevIndex + 1 : 0
@@ -115,11 +117,14 @@ const VideoBackground = () => {
             key={index}
             style={{
               ...styles.dot,
-              backgroundColor: index === currentTextIndex ? '#e7000b' : '#fff',
+              backgroundColor: index === currentTextIndex ? "#e7000b" : "#fff",
             }}
             onClick={() => setCurrentTextIndex(index)}
           />
         ))}
+      </div>
+      <div className="absolute bottom-0 right-0">
+        <img src="/shape.png" alt="shape" className="h-15 text-white z-10" />
       </div>
     </div>
   );
@@ -127,103 +132,87 @@ const VideoBackground = () => {
 
 const styles = {
   bannerContainer: {
-    position: 'relative',
-    width: '100%',
-    height: '500px', // Adjust the height of the banner
-    overflow: 'hidden',
+    position: "relative",
+    width: "100%",
+    height: "500px", // Adjust the height of the banner
+    overflow: "hidden",
   },
   video: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    transform: "translate(-50%, -50%)",
     zIndex: 0, // Ensure the video is behind the overlay
   },
   overlay: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent overlay
-    color: '#fff',
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent overlay
+    color: "#fff",
     zIndex: 1, // Ensure the overlay is above the video
   },
   heading: {
-    fontSize: '3rem',
-    marginBottom: '10px',
-    textAlign: 'center',
-    animation: 'fadeIn 1s ease-in-out', // Add animation for text transition
+    fontSize: "3rem",
+    marginBottom: "10px",
+    fontWeight: "bold",
+    textAlign: "center",
+    animation: "fadeIn 1s ease-in-out", // Add animation for text transition
   },
   subheading: {
-    fontSize: '1.5rem',
-    marginBottom: '20px',
-    textAlign: 'center',
-    animation: 'fadeIn 1s ease-in-out', // Add animation for text transition
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '1rem',
-    color: '#fff',
-    backgroundColor: '#e7000b',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-    animation: 'fadeIn 1s ease-in-out', // Add animation for text transition
+    fontSize: "1.2rem",
+    marginBottom: "20px",
+    textAlign: "center",
+    animation: "fadeIn 1s ease-in-out", // Add animation for text transition
   },
   navigation: {
-    width: '100%',
-    padding: '10px',
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: '10px',
+    width: "100%",
+    padding: "10px",
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    display: "flex",
+    justifyContent: "space-between",
+    gap: "10px",
     zIndex: 2,
   },
-  navButton: {
-    padding: '10px 15px',
-    fontSize: '1rem',
-    color: 'white',
-    backgroundColor: '#e7000b',
-    border: 'none',
-    borderRadius: '50%',
-    cursor: 'pointer',
-  },
   dots: {
-    position: 'absolute',
-    bottom: '20px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    display: 'flex',
-    gap: '10px',
+    position: "absolute",
+    bottom: "20px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    display: "flex",
+    gap: "10px",
     zIndex: 2,
   },
   dot: {
-    width: '10px',
-    height: '10px',
-    borderRadius: '50%',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
+    width: "10px",
+    height: "10px",
+    borderRadius: "50%",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
   },
 };
 
 // Add CSS animation for text transition
 const styleSheet = document.styleSheets[0];
-styleSheet.insertRule(`
+styleSheet.insertRule(
+  `
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }
-`, styleSheet.cssRules.length);
+`,
+  styleSheet.cssRules.length
+);
 
 export default VideoBackground;
