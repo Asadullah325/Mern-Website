@@ -27,7 +27,7 @@ export default function Navbar() {
         <div className="hidden md:flex space-x-6">
           <Link to="/" className={`text-gray-700 text-sm transition duration-300 font-bold uppercase ${location.pathname === "/" ? " text-red-600" : "hover:text-red-600"}`}>Home</Link>
           <Link to="/about" className={`text-gray-700 text-sm transition duration-300 font-bold uppercase ${location.pathname === "/about" ? " text-red-600" : "hover:text-red-600"}`}>About</Link>
-          <Link to="/services" className={`text-gray-700 text-sm transition duration-300 font-bold uppercase ${location.pathname === "/services" ? " text-red-600" : "hover:text-red-600"}`}>Services</Link>
+          <Link to="/menus" className={`text-gray-700 text-sm transition duration-300 font-bold uppercase ${location.pathname === "/menus" ? " text-red-600" : "hover:text-red-600"}`}>Menus</Link>
           <Link to="/contact" className={`text-gray-700 text-sm transition duration-300 font-bold uppercase ${location.pathname === "/contact" ? " text-red-600" : "hover:text-red-600"}`}>Contact</Link>
         </div>
         <div className="flex items-center gap-4">
@@ -94,13 +94,13 @@ export default function Navbar() {
           About
         </Link>
         <Link
-          to="/services"
+          to="/menus"
           className={`text-gray-700 font-bold transition duration-300 uppercase ${
-            location.pathname === "/services" ? " text-red-600" : "hover:text-red-600"
+            location.pathname === "/menus" ? " text-red-600" : "hover:text-red-600"
           }`}
           onClick={() => setIsOpen(false)}
         >
-          Services
+          Menus
         </Link>
         <Link
           to="/contact"

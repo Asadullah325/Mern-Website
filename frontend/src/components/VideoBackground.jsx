@@ -6,8 +6,27 @@ const videoSources = [
   '/Bg2.mp4',
 ];
 
+const textContent = [
+  {
+    heading: 'Welcome to My Website',
+    subheading: 'Explore our amazing features and services.',
+    buttonText: 'Get Started',
+  },
+  {
+    heading: 'Discover New Possibilities',
+    subheading: 'Innovative solutions for your needs.',
+    buttonText: 'Learn More',
+  },
+  {
+    heading: 'Join Our Community',
+    subheading: 'Be part of something great.',
+    buttonText: 'Sign Up',
+  },
+];
+
 const VideoBackground = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(5);
   const videoRef = useRef(null);
 
@@ -16,15 +35,21 @@ const VideoBackground = () => {
     setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videoSources.length);
   };
 
-  // Automatically switch to the next video after 5 seconds
+  // Function to switch to the next text content
+  const switchToNextText = () => {
+    setCurrentTextIndex((prevIndex) => (prevIndex + 1) % textContent.length);
+  };
+
+  // Automatically switch to the next video and text after 5 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       switchToNextVideo();
+      switchToNextText();
     }, 5000); // 5000 milliseconds = 5 seconds
 
-    // Clear the timer when the component unmounts or the video changes
+    // Clear the timer when the component unmounts or the video/text changes
     return () => clearTimeout(timer);
-  }, [currentVideoIndex]);
+  }, [currentVideoIndex, currentTextIndex]);
 
   // Play the current video when it changes
   useEffect(() => {
@@ -40,10 +65,10 @@ const VideoBackground = () => {
     }, 1000);
 
     return () => clearInterval(countdown);
-  }, [currentVideoIndex]);
+  }, [currentVideoIndex, currentTextIndex]);
 
   return (
-    <div style={styles.bannerContainer}>
+    <div style={styles.bannerContainer} className='mt-17'>
       <video
         ref={videoRef}
         key={currentVideoIndex}
@@ -56,9 +81,45 @@ const VideoBackground = () => {
         Your browser does not support the video tag.
       </video>
       <div style={styles.overlay}>
-        <h1 style={styles.heading}>Welcome to My Website</h1>
-        <p style={styles.subheading}>Explore our amazing features and services.</p>
-        <button style={styles.button}>Get Started</button>
+        <h1 style={styles.heading}>{textContent[currentTextIndex].heading}</h1>
+        <p style={styles.subheading}>{textContent[currentTextIndex].subheading}</p>
+        <button style={styles.button}>{textContent[currentTextIndex].buttonText}</button>
+      </div>
+      {/* Navigation Arrows */}
+      <div style={styles.navigation}>
+        <button
+          style={styles.navButton}
+          onClick={() => {
+            setCurrentTextIndex((prevIndex) =>
+              prevIndex > 0 ? prevIndex - 1 : textContent.length - 1
+            );
+          }}
+        >
+          &lt;
+        </button>
+        <button
+          style={styles.navButton}
+          onClick={() => {
+            setCurrentTextIndex((prevIndex) =>
+              prevIndex < textContent.length - 1 ? prevIndex + 1 : 0
+            );
+          }}
+        >
+          &gt;
+        </button>
+      </div>
+      {/* Dots Indicator */}
+      <div style={styles.dots}>
+        {textContent.map((_, index) => (
+          <span
+            key={index}
+            style={{
+              ...styles.dot,
+              backgroundColor: index === currentTextIndex ? '#e7000b' : '#fff',
+            }}
+            onClick={() => setCurrentTextIndex(index)}
+          />
+        ))}
       </div>
     </div>
   );
@@ -99,22 +160,70 @@ const styles = {
     fontSize: '3rem',
     marginBottom: '10px',
     textAlign: 'center',
+    animation: 'fadeIn 1s ease-in-out', // Add animation for text transition
   },
   subheading: {
     fontSize: '1.5rem',
     marginBottom: '20px',
     textAlign: 'center',
+    animation: 'fadeIn 1s ease-in-out', // Add animation for text transition
   },
   button: {
     padding: '10px 20px',
     fontSize: '1rem',
     color: '#fff',
-    backgroundColor: '#007BFF',
+    backgroundColor: '#e7000b',
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
+    animation: 'fadeIn 1s ease-in-out', // Add animation for text transition
+  },
+  navigation: {
+    width: '100%',
+    padding: '10px',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '10px',
+    zIndex: 2,
+  },
+  navButton: {
+    padding: '10px 15px',
+    fontSize: '1rem',
+    color: 'white',
+    backgroundColor: '#e7000b',
+    border: 'none',
+    borderRadius: '50%',
+    cursor: 'pointer',
+  },
+  dots: {
+    position: 'absolute',
+    bottom: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'flex',
+    gap: '10px',
+    zIndex: 2,
+  },
+  dot: {
+    width: '10px',
+    height: '10px',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
   },
 };
+
+// Add CSS animation for text transition
+const styleSheet = document.styleSheets[0];
+styleSheet.insertRule(`
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+`, styleSheet.cssRules.length);
 
 export default VideoBackground;
